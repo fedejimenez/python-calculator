@@ -2,6 +2,8 @@
 # coding: utf-8
 
 import tkinter
+import pdb
+from pdb import set_trace as bp
 from tkinter import Tk,Text,Button,END,re
 
 class Interfaz:
@@ -69,9 +71,9 @@ class Interfaz:
         if not escribir:
             #Sólo calcular si hay una operación a ser evaluada y si el usuario presionó '='
             if texto=="=" and self.operacion!="":
+                resultado = self.calculoResultado()
                 #Reemplazar el valor unicode de la división por el operador división de Python '/'
                 self.operacion=re.sub(u"\u00F7", "/", self.operacion)
-                resultado=str(eval(self.operacion))
                 self.operacion=""
                 self.limpiarPantalla()
                 self.mostrarEnPantalla(resultado)
@@ -81,10 +83,22 @@ class Interfaz:
                 self.limpiarPantalla()
         #Mostrar texto
         else:
+            print('texto', texto)
             self.operacion+=str(texto)
             self.mostrarEnPantalla(texto)
         return
     
+    #Calculo el resultado, dependiendo si ya hay un resultado previo o no
+    def calculoResultado(self):
+        #Si ya hay un resultado previo, usarlo para la próxima cuenta
+        resultado_previo = self.pantalla.get("1.0", END)
+        longitud_resultado_previo = len(resultado_previo)
+        if longitud_resultado_previo > 1:
+            resultado_previo = re.sub(u"\u00F7", "/", resultado_previo)
+            resultado=str(eval(resultado_previo[:longitud_resultado_previo-1]))
+        else:
+            resultado=str(eval(self.operacion))
+        return resultado
 
     #Borra el contenido de la pantalla de la calculadora
     def limpiarPantalla(self):
