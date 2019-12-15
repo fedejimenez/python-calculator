@@ -11,7 +11,10 @@ class Interfaz:
         self.ventana.title("Calculadora")
 
         #Agregar una caja de texto para que sea la pantalla de la calculadora
-        self.pantalla=Text(self.ventana, state="disabled", width=40, height=3, background="orchid", foreground="white", font=("Helvetica",15))
+        self.pantalla=Text(self.ventana, state="disabled", width=40, height=3, background="white", foreground="white", font=("Helvetica",15), fg="black")
+
+        #Justifico a la derecha
+        self.pantalla.tag_configure('justify-right', justify='right')
 
         #Ubicar la pantalla en la ventana
         self.pantalla.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
@@ -90,7 +93,7 @@ class Interfaz:
     #Muestra en la pantalla de la calculadora el contenido de las operaciones y los resultados
     def mostrarEnPantalla(self, valor):
         self.pantalla.configure(state="normal")
-        self.pantalla.insert(END, valor)
+        self.pantalla.insert(END, valor, 'justify-right')
         self.pantalla.configure(state="disabled")
         return
 
