@@ -11,10 +11,14 @@ class Interfaz:
         self.ventana.title("Calculadora")
 
         #Agregar una caja de texto para que sea la pantalla de la calculadora
-        self.pantalla=Text(self.ventana, state="disabled", width=40, height=3, background="white", foreground="white", font=("Helvetica",15), fg="black")
+        self.pantalla=Text(self.ventana, state="disabled", width=40, height=1, background="white", foreground="white", font=("Helvetica",15), fg="black")
 
         #Justifico a la derecha
         self.pantalla.tag_configure('justify-right', justify='right')
+
+        #Agrego padding a la caja de texto y centrar verticalmente
+        self.pantalla.config(padx = 10)
+        self.pantalla.config(pady = 20)
 
         #Ubicar la pantalla en la ventana
         self.pantalla.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
